@@ -1,0 +1,23 @@
+﻿using UnityEngine;
+using System.Collections;
+
+public class NewAccident : MonoBehaviour {
+
+
+	// Use this for initialization
+	void Start () {
+	
+	}
+	
+	// Update is called once per frame
+	void Update () {
+	
+	}
+
+    void OnTriggerEnter(Collider c) {
+        if (c.tag.Equals("car")) {
+            c.GetComponent<VehicleController>().PlayNewAccident();
+            Debug.Log("new accident triggered");
+        }
+    }
+}
