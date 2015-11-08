@@ -18,4 +18,10 @@ public class Mud : MonoBehaviour {
             c.GetComponent<VehicleController>().PlayUnsafeToPullOver();
         }
     }
+
+    void OnTriggerExit(Collider c) {
+        if (c.tag.Equals("car")) {
+            c.GetComponent<VehicleController>().SafeToPullOver();
+        }
+    }
 }
