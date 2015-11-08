@@ -3,7 +3,6 @@ using System.Collections;
 
 public class NewAccident : MonoBehaviour {
 
-
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +16,6 @@ public class NewAccident : MonoBehaviour {
     void OnTriggerEnter(Collider c) {
         if (c.tag.Equals("car")) {
             c.GetComponent<VehicleController>().PlayNewAccident();
-            Debug.Log("new accident triggered");
         }
     }
 }

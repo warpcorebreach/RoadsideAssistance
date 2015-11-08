@@ -6,24 +6,23 @@ public class VehicleController : MonoBehaviour {
     public AudioClip accidentUpdate;
     public AudioClip accidentUpdateSpeech;
     public AudioClip unsafeToPullOver;
+    public DirectionalNav accident;
 
-    float Speed;
-    float RotateSpeed;
+    private float Speed;
+    private float RotateSpeed;
+    private bool newJob;
 
-    public AudioSource directionSource;
-    public AudioSource notifySource;
-    public AudioSource notifySource2;
-
-    public AudioClip[] Clips;
+    private AudioSource notifySource;
+    private AudioSource notifySource2;
 
 	// Use this for initialization
 	void Start () {
+        newJob = false;
         Speed = 10;
         RotateSpeed = 1;
         AudioSource[] sources = this.GetComponents<AudioSource>();
-        directionSource = sources[0];
-        notifySource = sources[1];
-        notifySource2 = sources[2];
+        notifySource = sources[0];
+        notifySource2 = sources[1];
 	}
 	
 	// Update is called once per frame
@@ -36,11 +35,18 @@ public class VehicleController : MonoBehaviour {
         float h = RotateSpeed * Input.GetAxis("Mouse X");
         //float v = 1 * Input.GetAxis("Mouse Y");
         transform.Rotate(0, h, 0);
+
+        // wait until new accident notification is finished playing to start nav
+        if (newJob && !notifySource.isPlaying) {
+            accident.InitializeNav();
+            newJob = false;
+        }
 	}
 
     public void PlayNewAccident() {
         notifySource.clip = newAccident;
         notifySource.Play();
+        newJob = true;
     }
 
     public void PlayAccidentUpdate() {
@@ -56,7 +62,6 @@ public class VehicleController : MonoBehaviour {
     public void PlayUnsafeToPullOver() {
         notifySource.clip = unsafeToPullOver;
         notifySource.Play();
-        Debug.Log("unsafe to pull over");
     }
 
     public void PlayOpenDoor() {
