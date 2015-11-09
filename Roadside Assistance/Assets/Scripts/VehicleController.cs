@@ -11,12 +11,6 @@ public class VehicleController : MonoBehaviour {
     public AudioClip safeToOpenDoor;
     public AudioClip turnSignal;
     public AudioClip safeToMerge;
-    public AudioClip unsafeToMerge;
-
-    // environment audio - not using these in code right now
-    public AudioClip roadNoise;
-    public AudioClip engineNoise;
-    public AudioClip gpsNoise;
 
     public DirectionalNav accident;
     public Transform firstPerson, thirdPerson;
@@ -30,10 +24,6 @@ public class VehicleController : MonoBehaviour {
     private AudioSource notifySource3;
     private AudioSource alarmSource;
 
-    private AudioSource envSource1;
-    private AudioSource envSource2;
-    private AudioSource envSource3;
-
 	// Use this for initialization
 	void Start () {
         newJob = false;
@@ -46,10 +36,6 @@ public class VehicleController : MonoBehaviour {
         notifySource2 = sources[1];
         alarmSource = sources[2];
         notifySource3 = sources[3];
-
-        envSource1 = sources[4];
-        envSource2 = sources[5];
-        envSource3 = sources[6];
 	}
 	
 	// Update is called once per frame
@@ -110,9 +96,6 @@ public class VehicleController : MonoBehaviour {
         notifySource3.clip = turnSignal;
         notifySource3.loop = true;
         notifySource3.Play();
-
-        notifySource2.clip = unsafeToMerge;
-        notifySource2.Play();
 
         StartCoroutine(MergeIntoTraffic());
     }
