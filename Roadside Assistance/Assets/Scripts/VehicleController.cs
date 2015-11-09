@@ -2,12 +2,22 @@
 using System.Collections;
 
 public class VehicleController : MonoBehaviour {
+    // notification audio
     public AudioClip newAccident;
     public AudioClip accidentUpdate;
     public AudioClip accidentUpdateSpeech;
     public AudioClip unsafeToPullOver;
     public AudioClip unsafeToOpenDoor;
     public AudioClip safeToOpenDoor;
+    public AudioClip turnSignal;
+    public AudioClip safeToMerge;
+    public AudioClip unsafeToMerge;
+
+    // environment audio - not using these in code right now
+    public AudioClip roadNoise;
+    public AudioClip engineNoise;
+    public AudioClip gpsNoise;
+
     public DirectionalNav accident;
     public Transform firstPerson, thirdPerson;
 
@@ -17,7 +27,12 @@ public class VehicleController : MonoBehaviour {
 
     private AudioSource notifySource;
     private AudioSource notifySource2;
+    private AudioSource notifySource3;
     private AudioSource alarmSource;
+
+    private AudioSource envSource1;
+    private AudioSource envSource2;
+    private AudioSource envSource3;
 
 	// Use this for initialization
 	void Start () {
@@ -30,6 +45,11 @@ public class VehicleController : MonoBehaviour {
         notifySource = sources[0];
         notifySource2 = sources[1];
         alarmSource = sources[2];
+        notifySource3 = sources[3];
+
+        envSource1 = sources[4];
+        envSource2 = sources[5];
+        envSource3 = sources[6];
 	}
 	
 	// Update is called once per frame
@@ -86,6 +106,17 @@ public class VehicleController : MonoBehaviour {
         StartCoroutine(PlaySafeToPullOver());
     }
 
+    public void PlayTurnSignal() {
+        notifySource3.clip = turnSignal;
+        notifySource3.loop = true;
+        notifySource3.Play();
+
+        notifySource2.clip = unsafeToMerge;
+        notifySource2.Play();
+
+        StartCoroutine(MergeIntoTraffic());
+    }
+
     public void PlayUnsafeToOpenDoor() {
         StartCoroutine(PlayDoorOpen());
     }
@@ -105,6 +136,15 @@ public class VehicleController : MonoBehaviour {
             alarmSource.Play();
             yield return new WaitForSeconds(1.5f);
         }
+    }
+
+    private IEnumerator MergeIntoTraffic() {
+        yield return new WaitForSeconds(4f);
+        notifySource3.Stop();   // disable blinker
+        notifySource3.loop = false;
+
+        notifySource2.clip = safeToMerge;
+        notifySource2.Play();
     }
 
     public void SafeToPullOver() {

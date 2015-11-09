@@ -31,4 +31,10 @@ public class DirectionalNav : MonoBehaviour {
             yield return new WaitForSeconds(delay * navBeepDelay);
         }
     }
+
+    void OnTriggerEnter(Collider c) {
+        if (c.tag.Equals("car")) {
+            aud.Stop();
+        }
+    }
 }
