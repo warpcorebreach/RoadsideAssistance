@@ -1,0 +1,78 @@
+<?xml version="1.0" standalone="no" ?>
+<!DOCTYPE project PUBLIC "-//audacityproject-1.3.0//DTD//EN" "http://audacity.sourceforge.net/xml/audacityproject-1.3.0.dtd" >
+<project xmlns="http://audacity.sourceforge.net/xml/" projname="weather_proj_data" version="1.3.0" audacityversion="2.1.1" sel0="0.0000000000" sel1="0.0000000000" vpos="0" h="0.0000000000" zoom="18.9152542373" rate="44100.0" snapto="off" selectionformat="hh:mm:ss + milliseconds" frequencyformat="Hz" bandwidthformat="octaves">
+	<tags>
+		<tag name="GENRE" value="Other"/>
+	</tags>
+	<wavetrack name="181327__boulderdamstudios__special-weather-statement" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="148055">
+				<waveblock start="0">
+					<simpleblockfile filename="e000285c.au" len="148055" min="-0.735362" max="0.891251" rms="0.194106"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="237729__flathill__rain-and-thunder-4" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="393030">
+				<waveblock start="0">
+					<simpleblockfile filename="e000299f.au" len="196515" min="-0.754326" max="0.891251" rms="0.100933"/>
+				</waveblock>
+				<waveblock start="196515">
+					<simpleblockfile filename="e000277a.au" len="196515" min="-0.50915" max="0.412207" rms="0.086975"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="182500__swiftoid__birds-chirping-04" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="96000" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="855576">
+				<waveblock start="0">
+					<simpleblockfile filename="e0002c75.au" len="182497" min="-0.271488" max="0.292206" rms="0.036684"/>
+				</waveblock>
+				<waveblock start="182497">
+					<simpleblockfile filename="e000276d.au" len="184971" min="-0.843636" max="0.832721" rms="0.138865"/>
+				</waveblock>
+				<waveblock start="367468">
+					<simpleblockfile filename="e000292f.au" len="184971" min="-0.457512" max="0.449412" rms="0.059532"/>
+				</waveblock>
+				<waveblock start="552439">
+					<simpleblockfile filename="e0002205.au" len="151568" min="-0.351556" max="0.3405" rms="0.038852"/>
+				</waveblock>
+				<waveblock start="704007">
+					<simpleblockfile filename="e0002e32.au" len="151569" min="-0.198642" max="0.195929" rms="0.029186"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="117136__cobratronik__wind-artic-cold" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="0" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="393030">
+				<waveblock start="0">
+					<simpleblockfile filename="e0002ba6.au" len="200624" min="-0.621738" max="0.728686" rms="0.16473"/>
+				</waveblock>
+				<waveblock start="200624">
+					<simpleblockfile filename="e00020f8.au" len="192406" min="-0.623472" max="0.569035" rms="0.159657"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+	<wavetrack name="30606__acclivity__jamesportwindchimes" channel="2" linked="0" mute="0" solo="0" height="150" minimized="0" isSelected="1" rate="44100" gain="1.0" pan="0.0">
+		<waveclip offset="0.00000000">
+			<sequence maxsamples="262144" sampleformat="262159" numsamples="393030">
+				<waveblock start="0">
+					<simpleblockfile filename="e0002665.au" len="196515" min="-0.875184" max="0.891251" rms="0.148477"/>
+				</waveblock>
+				<waveblock start="196515">
+					<simpleblockfile filename="e0002e2a.au" len="196515" min="-0.590761" max="0.58307" rms="0.114881"/>
+				</waveblock>
+			</sequence>
+			<envelope numpoints="0"/>
+		</waveclip>
+	</wavetrack>
+</project>
