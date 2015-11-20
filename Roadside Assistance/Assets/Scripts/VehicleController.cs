@@ -42,8 +42,8 @@ public class VehicleController : MonoBehaviour {
 	void Update ()
     {
         float forward = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-        float side = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
-        transform.Translate(side, 0, forward);
+        //float side = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
+        transform.Translate(0, 0, forward);
 
         float h = RotateSpeed * Input.GetAxis("Mouse X");
         //float v = 1 * Input.GetAxis("Mouse Y");
