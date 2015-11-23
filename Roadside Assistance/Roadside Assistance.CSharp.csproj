@@ -78,6 +78,7 @@
     <Compile Include="Assets\Scripts\TrafficCars.cs" />
     <Compile Include="Assets\Scripts\TrafficControl.cs" />
     <Compile Include="Assets\Scripts\VehicleController.cs" />
+    <Compile Include="Assets\Scripts\WeatherTrigger.cs" />
     <Compile Include="Assets\Scripts\WeatherUpdate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />

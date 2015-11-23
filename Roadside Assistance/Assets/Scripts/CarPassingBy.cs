@@ -27,9 +27,17 @@ public class CarPassingBy : MonoBehaviour {
     {
         while(true)
         {
+            source.pitch = NormalizeToRange(m_secondsBetween, 2, 5);
+            Debug.Log(source.pitch);
             source.Play();
             yield return new WaitForSeconds(source.clip.length + m_secondsBetween);
         }
+    }
+
+    float NormalizeToRange(float val, float min, float max)
+    {
+        float range = max - min;
+        return Mathf.Abs(val - min) / range;
     }
 	
 	// Update is called once per frame

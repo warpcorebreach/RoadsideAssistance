@@ -6,8 +6,6 @@ public class WeatherUpdate : MonoBehaviour {
     public AudioSource AlarmSource;
     public AudioSource RainSource, WindSource, ClearSource, SnowSource;
 
-    public AudioClip AlarmClip;
-    public AudioClip RainClip, WindClip, ClearClip, SnowClip;
 
     public bool IsRain, IsWind, IsClear, IsSnow;
 
@@ -20,6 +18,7 @@ public class WeatherUpdate : MonoBehaviour {
         get { return m_isPlaying; }
         set
         {
+            m_isPlaying = value;
             if (value)
             {
                 StartCoroutine("PlayWeatherSounds");
@@ -28,16 +27,13 @@ public class WeatherUpdate : MonoBehaviour {
             {
                 StopCoroutine("PlayWeatherSounds");
             }
-            m_isPlaying = value;
         }
     }
 
 	// Use this for initialization
 	void Start () {
-        RainSource.clip = RainClip;
-        WindSource.clip = WindClip;
-        SnowSource.clip = SnowClip;
-        ClearSource.clip = ClearClip;
+        IsClear = true;
+        IsPlaying = false;
 	}
 	
 	// Update is called once per frame
@@ -47,32 +43,35 @@ public class WeatherUpdate : MonoBehaviour {
 
     public IEnumerator PlayWeatherSounds()
     {
+        //Debug.Log("is playing: " + m_isPlaying);
         while (IsPlaying)
         {
             AlarmSource.Play();
-            yield return new WaitForSeconds(AlarmClip.length);
+            yield return new WaitForSeconds(AlarmSource.clip.length);
             float waitTime = 0;
             if (IsRain)
             {
                 RainSource.Play();
-                waitTime = RainClip.length;
+                waitTime = RainSource.clip.length;
             }
             if (IsSnow)
             {
                 SnowSource.Play();
-                waitTime = SnowClip.length;
+                waitTime = SnowSource.clip.length;
             }
             if (IsWind)
             {
                 WindSource.Play();
-                waitTime = WindClip.length;
+                waitTime = WindSource.clip.length;
             }
             if (IsClear)
             {
                 ClearSource.Play();
-                waitTime = ClearClip.length;
+                waitTime = ClearSource.clip.length;
             }
             yield return new WaitForSeconds(waitTime + SecondsBetweenPlays);
         }
     }
+
+    
 }
