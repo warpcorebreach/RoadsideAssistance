@@ -14,9 +14,9 @@ public class VehicleController : MonoBehaviour {
 
     public DirectionalNav accident;
     public Transform firstPerson, thirdPerson;
+    public float RotateSpeed;
 
     private float Speed;
-    private float RotateSpeed;
     private bool newJob, isFirstPerson, safeToPullOver;
 
     private AudioSource notifySource;
@@ -30,7 +30,7 @@ public class VehicleController : MonoBehaviour {
         isFirstPerson = false;
         safeToPullOver = false;
         Speed = 10;
-        RotateSpeed = 1;
+        //RotateSpeed = 1;
         AudioSource[] sources = this.GetComponents<AudioSource>();
         notifySource = sources[0];
         notifySource2 = sources[1];
