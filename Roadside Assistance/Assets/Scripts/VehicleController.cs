@@ -45,9 +45,18 @@ public class VehicleController : MonoBehaviour {
         //float side = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
         transform.Translate(0, 0, forward);
 
+        /*
         float h = RotateSpeed * Input.GetAxis("Mouse X");
         //float v = 1 * Input.GetAxis("Mouse Y");
         transform.Rotate(0, h, 0);
+        */
+
+        // use A and D to turn instead of mouse
+        if (Input.GetKey(KeyCode.D)) {
+            transform.Rotate(0, RotateSpeed, 0);
+        } else if (Input.GetKey(KeyCode.A)) {
+            transform.Rotate(0, -RotateSpeed, 0);
+        }
 
         // wait until new accident notification is finished playing to start nav
         if (newJob && !notifySource.isPlaying) {
