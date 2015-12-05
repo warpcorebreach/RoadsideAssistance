@@ -29,7 +29,10 @@ public class DirectionalNav : MonoBehaviour {
         float delay;
 
         while (!isInRange) {
-            aud.Play();
+            if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+            {
+                aud.Play();
+            }
             delay = (serviceVehicle.position - transform.position).magnitude / maxDistance;
             yield return new WaitForSeconds(delay * navBeepDelay);
         }

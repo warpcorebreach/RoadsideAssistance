@@ -6,6 +6,8 @@ public class WeatherUpdate : MonoBehaviour {
     public AudioSource AlarmSource;
     public AudioSource RainSource, WindSource, ClearSource, SnowSource;
 
+    public GameObject DashboardPanel;
+    private DashboardUI dUI;
 
     public bool IsRain, IsWind, IsClear, IsSnow;
 
@@ -26,12 +28,14 @@ public class WeatherUpdate : MonoBehaviour {
             else
             {
                 StopCoroutine("PlayWeatherSounds");
+                dUI.ClearWeather();
             }
         }
     }
 
 	// Use this for initialization
 	void Start () {
+        dUI = DashboardPanel.GetComponent<DashboardUI>();
         IsClear = true;
         IsPlaying = false;
 	}
@@ -46,30 +50,40 @@ public class WeatherUpdate : MonoBehaviour {
         //Debug.Log("is playing: " + m_isPlaying);
         while (IsPlaying)
         {
-            AlarmSource.Play();
-            yield return new WaitForSeconds(AlarmSource.clip.length);
-            float waitTime = 0;
-            if (IsRain)
+            if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
             {
-                RainSource.Play();
-                waitTime = RainSource.clip.length;
+                dUI.ToggleWeatherLight();
+                AlarmSource.Play();
+                yield return new WaitForSeconds(AlarmSource.clip.length);
+                float waitTime = 0;
+                if (IsRain)
+                {
+                    RainSource.Play();
+                    waitTime = RainSource.clip.length;
+                }
+                if (IsSnow)
+                {
+                    SnowSource.Play();
+                    waitTime = SnowSource.clip.length;
+                }
+                if (IsWind)
+                {
+                    WindSource.Play();
+                    waitTime = WindSource.clip.length;
+                }
+                if (IsClear)
+                {
+                    ClearSource.Play();
+                    waitTime = ClearSource.clip.length;
+                }
+                yield return new WaitForSeconds(waitTime);
+                dUI.ToggleWeatherLight();
+                yield return new WaitForSeconds(SecondsBetweenPlays);
             }
-            if (IsSnow)
+            else
             {
-                SnowSource.Play();
-                waitTime = SnowSource.clip.length;
+                yield return new WaitForSeconds(SecondsBetweenPlays);
             }
-            if (IsWind)
-            {
-                WindSource.Play();
-                waitTime = WindSource.clip.length;
-            }
-            if (IsClear)
-            {
-                ClearSource.Play();
-                waitTime = ClearSource.clip.length;
-            }
-            yield return new WaitForSeconds(waitTime + SecondsBetweenPlays);
         }
     }
 

@@ -11,6 +11,12 @@ public class VehicleController : MonoBehaviour {
     public AudioClip safeToOpenDoor;
     public AudioClip turnSignal;
     public AudioClip safeToMerge;
+    public AudioClip newJobSpeech;
+    public AudioClip weatherSpeech;
+
+    //Dashboard UI
+    public GameObject DashboardPanel;
+    private DashboardUI dUI;
 
     public DirectionalNav accident;
     public Transform firstPerson, thirdPerson;
@@ -36,6 +42,7 @@ public class VehicleController : MonoBehaviour {
         notifySource2 = sources[1];
         alarmSource = sources[2];
         notifySource3 = sources[3];
+        dUI = DashboardPanel.GetComponent<DashboardUI>();
 	}
 	
 	// Update is called once per frame
@@ -80,33 +87,77 @@ public class VehicleController : MonoBehaviour {
 	}
 
     public void PlayNewAccident() {
-        notifySource.clip = newAccident;
-        notifySource.Play();
-        newJob = true;
+        if (DashboardUI.LEVEL > SoundLevel.OFF)
+        {
+            notifySource.clip = newAccident;
+            notifySource.Play();
+            //StartCoroutine("NewLightOn", newAccident.length);
+            newJob = true;
+        }
+        dUI.ToggleNewJobLight();
     }
+    
+    
 
     public void PlayAccidentUpdate() {
-        notifySource.clip = accidentUpdate;
-        notifySource.Play();
+        if (DashboardUI.LEVEL > SoundLevel.OFF)
+        {
+            notifySource.clip = accidentUpdate;
+            notifySource.Play();
+            //StartCoroutine("NewUpdateOn", accidentUpdate.length);
+        }
+        dUI.ToggleUpdateLight();
+    }
+    
+    private IEnumerator NewUpdateOff(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dUI.ToggleUpdateLight();
+    }
+
+    private IEnumerator NewJobOff(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dUI.ToggleNewJobLight();
     }
 
     public void PlayAccidentUpdateSpeech() {
         notifySource2.clip = accidentUpdateSpeech;
         notifySource2.Play();
+        StartCoroutine("NewUpdateOff", accidentUpdateSpeech.length);
     }
 
+    public void PlayNewJobSpeech()
+    {
+        notifySource2.clip = newJobSpeech;
+        notifySource2.Play();
+        StartCoroutine("NewJobOff", newJobSpeech.length);
+    }
+
+    public void PlayWeatherSpeech()
+    {
+        notifySource2.clip = weatherSpeech;
+        notifySource2.Play();
+    }
+    
     public void PlayUnsafeToPullOver() {
-        safeToPullOver = false;
-        alarmSource.clip = unsafeToPullOver;
-        StartCoroutine(PlaySafeToPullOver());
+        if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+        {
+            safeToPullOver = false;
+            alarmSource.clip = unsafeToPullOver;
+            StartCoroutine(PlaySafeToPullOver());
+        }
     }
 
     public void PlayTurnSignal() {
-        notifySource3.clip = turnSignal;
-        notifySource3.loop = true;
-        notifySource3.Play();
+        if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+        {
+            notifySource3.clip = turnSignal;
+            notifySource3.loop = true;
+            notifySource3.Play();
 
-        StartCoroutine(MergeIntoTraffic());
+            StartCoroutine(MergeIntoTraffic());
+        }
     }
 
     public void PlayUnsafeToOpenDoor() {
