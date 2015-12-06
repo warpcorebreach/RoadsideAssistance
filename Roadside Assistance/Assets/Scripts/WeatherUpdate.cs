@@ -50,7 +50,7 @@ public class WeatherUpdate : MonoBehaviour {
         //Debug.Log("is playing: " + m_isPlaying);
         while (IsPlaying)
         {
-            if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+            if (DashboardUI.LEVEL >= SoundLevel.MEDIUM && VehicleController.CURRENTSTATE == State.PATROL)
             {
                 dUI.ToggleWeatherLight();
                 AlarmSource.Play();

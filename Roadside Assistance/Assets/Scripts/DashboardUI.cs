@@ -71,6 +71,7 @@ public class DashboardUI : MonoBehaviour {
     {
         WeatherLight.GetComponent<Image>().color = Color.black;
     }
+
     
     public void ChangeSoundLevel()
     {

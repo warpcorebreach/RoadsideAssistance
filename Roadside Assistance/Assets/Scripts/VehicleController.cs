@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+
+public enum State { PATROL, ENROUTE, ATGOAL};
+
 
 public class VehicleController : MonoBehaviour {
     // notification audio
@@ -17,6 +21,8 @@ public class VehicleController : MonoBehaviour {
     //Dashboard UI
     public GameObject DashboardPanel;
     private DashboardUI dUI;
+    public Button JobDone;
+    public static State CURRENTSTATE;
 
     public DirectionalNav accident;
     public Transform firstPerson, thirdPerson;
@@ -32,6 +38,7 @@ public class VehicleController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        CURRENTSTATE = State.PATROL;
         newJob = false;
         isFirstPerson = false;
         safeToPullOver = false;
@@ -43,6 +50,7 @@ public class VehicleController : MonoBehaviour {
         alarmSource = sources[2];
         notifySource3 = sources[3];
         dUI = DashboardPanel.GetComponent<DashboardUI>();
+        DashboardUI.LEVEL = SoundLevel.MEDIUM;
 	}
 	
 	// Update is called once per frame
@@ -84,29 +92,66 @@ public class VehicleController : MonoBehaviour {
                 isFirstPerson = true;
             }
         }
+
+        if (CURRENTSTATE == State.PATROL)
+        {
+            JobDone.interactable = false;
+            JobDone.GetComponentInChildren<Text>().text = "Patrolling...";
+        }
+        else if (CURRENTSTATE == State.ENROUTE)
+        {
+            JobDone.interactable = true;
+            JobDone.GetComponentInChildren<Text>().text = "Set Arrived";
+        }
+        else
+        {
+            JobDone.interactable = true;
+            JobDone.GetComponentInChildren<Text>().text = "Set Complete";
+        }
+        //Debug.Log(CURRENTSTATE);
+
 	}
 
     public void PlayNewAccident() {
-        if (DashboardUI.LEVEL > SoundLevel.OFF)
+        if (CURRENTSTATE == State.PATROL)
         {
-            notifySource.clip = newAccident;
-            notifySource.Play();
+            if (DashboardUI.LEVEL > SoundLevel.OFF)
+            {
+                notifySource.clip = newAccident;
+                notifySource.Play();
+            }
             //StartCoroutine("NewLightOn", newAccident.length);
             newJob = true;
+            dUI.ToggleNewJobLight();
+            CURRENTSTATE = State.ENROUTE;
         }
-        dUI.ToggleNewJobLight();
+    }
+
+    public void ToggleNewJob()
+    {
+        if (CURRENTSTATE == State.ENROUTE)
+        {
+            CURRENTSTATE = State.ATGOAL;
+        }
+        else if (CURRENTSTATE == State.ATGOAL)
+        {
+            CURRENTSTATE = State.PATROL;
+        }
     }
     
     
 
     public void PlayAccidentUpdate() {
-        if (DashboardUI.LEVEL > SoundLevel.OFF)
+        if (CURRENTSTATE == State.ENROUTE)
         {
-            notifySource.clip = accidentUpdate;
-            notifySource.Play();
-            //StartCoroutine("NewUpdateOn", accidentUpdate.length);
+            if (DashboardUI.LEVEL > SoundLevel.OFF)
+            {
+                notifySource.clip = accidentUpdate;
+                notifySource.Play();
+                //StartCoroutine("NewUpdateOn", accidentUpdate.length);
+            }
+            dUI.ToggleUpdateLight();
         }
-        dUI.ToggleUpdateLight();
     }
     
     private IEnumerator NewUpdateOff(float time)
@@ -141,11 +186,14 @@ public class VehicleController : MonoBehaviour {
     }
     
     public void PlayUnsafeToPullOver() {
-        if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+        if (CURRENTSTATE == State.ENROUTE)
         {
             safeToPullOver = false;
-            alarmSource.clip = unsafeToPullOver;
-            StartCoroutine(PlaySafeToPullOver());
+            if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+            {
+                alarmSource.clip = unsafeToPullOver;
+                StartCoroutine(PlaySafeToPullOver());
+            }
         }
     }
 
