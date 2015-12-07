@@ -40,7 +40,7 @@ public class DirectionalNav : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider c) {
-        if (c.tag.Equals("car")) {
+        if (c.tag.Equals("car") || c.tag.Equals("car2")) {
             isInRange = true;
         }
     }

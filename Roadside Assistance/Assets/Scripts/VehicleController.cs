@@ -18,6 +18,8 @@ public class VehicleController : MonoBehaviour {
     public AudioClip newJobSpeech;
     public AudioClip weatherSpeech;
 
+    public GameObject[] mudSpots;
+
     //Dashboard UI
     public GameObject DashboardPanel;
     private DashboardUI dUI;
@@ -51,7 +53,15 @@ public class VehicleController : MonoBehaviour {
         notifySource3 = sources[3];
         dUI = DashboardPanel.GetComponent<DashboardUI>();
         DashboardUI.LEVEL = SoundLevel.MEDIUM;
-	}
+
+        GetComponentInChildren<Camera>().transform.position = firstPerson.position;
+        GetComponentInChildren<Camera>().transform.rotation = firstPerson.rotation;
+
+        foreach (GameObject mud in mudSpots) {
+            Debug.Log("mud");
+            mud.GetComponent<Mud>().SetSeverity(Random.Range(-1.5f, 1.5f));
+        }
+    }
 	
 	// Update is called once per frame
 	void Update ()

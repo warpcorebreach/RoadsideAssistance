@@ -19,6 +19,8 @@ public class AccidentUpdate : MonoBehaviour {
             if (c.tag.Equals("car"))
             {
                 c.GetComponent<VehicleController>().PlayAccidentUpdate();
+            } else if (c.tag.Equals("car2")) {
+                c.GetComponent<Scen2Vehicle>().PlayAccidentUpdate();
             }
         }
         

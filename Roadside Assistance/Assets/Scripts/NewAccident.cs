@@ -19,6 +19,8 @@ public class NewAccident : MonoBehaviour {
     void OnTriggerEnter(Collider c) {
         if (c.tag.Equals("car")) {
             c.GetComponent<VehicleController>().PlayNewAccident(AccidentType, SpeechType);
+        } else if (c.tag.Equals("car2")) {
+            c.GetComponent<Scen2Vehicle>().PlayNewAccident(AccidentType, SpeechType);
         }
     }
 }

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - car
   - wall
+  - car2
   layers:
   - Default
   - TransparentFX
