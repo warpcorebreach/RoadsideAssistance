@@ -75,7 +75,6 @@
     <Compile Include="Assets\Scripts\Movement.cs" />
     <Compile Include="Assets\Scripts\Mud.cs" />
     <Compile Include="Assets\Scripts\NewAccident.cs" />
-    <Compile Include="Assets\Scripts\SafeToOpenDoor.cs" />
     <Compile Include="Assets\Scripts\TrafficCars.cs" />
     <Compile Include="Assets\Scripts\TrafficControl.cs" />
     <Compile Include="Assets\Scripts\VehicleController.cs" />

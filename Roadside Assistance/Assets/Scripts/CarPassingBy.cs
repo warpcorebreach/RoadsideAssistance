@@ -11,7 +11,7 @@ public class CarPassingBy : MonoBehaviour {
 
     private float m_secondsBetween, m_speed, m_curPoint;
     private float m_scale;
-    private float m_normalizedDistance;
+    public static float NDistance;
 
 	// Use this for initialization
 	void Start () {
@@ -29,7 +29,7 @@ public class CarPassingBy : MonoBehaviour {
         while(true)
         {
 
-            source.pitch = m_normalizedDistance;
+            source.pitch = NDistance;
             //Debug.Log(source.pitch);
             if (DashboardUI.LEVEL >= SoundLevel.HIGH)
             {
@@ -70,11 +70,17 @@ public class CarPassingBy : MonoBehaviour {
             m_curPoint = 0;
         }
         //m_secondsBetween = Vector3.Distance(this.transform.position, Target.transform.position)*Scale;
-        m_normalizedDistance = NormalizeDistance();
-        m_secondsBetween = 1/Mathf.Exp(m_normalizedDistance * m_scale);
+        NDistance = NormalizeDistance();
+        m_secondsBetween = 1/Mathf.Exp(NDistance * m_scale);
         //Debug.Log("normalized: " + NormalizeDistance());
         //Debug.Log("seconds b/w: " + m_secondsBetween);
         m_curPoint += Time.deltaTime * m_speed;
         this.transform.position = Vector3.Lerp(PointA.position, PointB.position, m_curPoint);
 	}
+
+
+    public static float GetLowestDistance(Transform other)
+    {
+        return NDistance;
+    }
 }

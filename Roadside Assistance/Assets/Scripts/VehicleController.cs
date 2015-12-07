@@ -56,9 +56,35 @@ public class VehicleController : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        float forward = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+        Rigidbody rb = this.GetComponent<Rigidbody>();
+        //float forward = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.W))
+        {
+            float forward = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+            transform.Translate(0, 0, forward);
+            //rb.AddForce(transform.forward * 10);
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            float forward = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
+            transform.Translate(0, 0, -1*forward);
+            //rb.AddForce(transform.forward * -10);
+        }
+        if (rb.velocity.x != 0 || rb.velocity.y != 0 || rb.velocity.z != 0)
+        {
+            if (Input.GetKey(KeyCode.D))
+            {
+                transform.Rotate(0, RotateSpeed, 0);
+                //this.GetComponent<Rigidbody>().AddForce(transform.right * 10);
+            }
+            else if (Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(0, -RotateSpeed, 0);
+                //this.GetComponent<Rigidbody>().AddForce(-transform.right * 10);
+            }
+        }
         //float side = Input.GetAxis("Horizontal") * Speed * Time.deltaTime;
-        transform.Translate(0, 0, forward);
+        //transform.Translate(0, 0, forward);
 
         /*
         float h = RotateSpeed * Input.GetAxis("Mouse X");
@@ -67,11 +93,7 @@ public class VehicleController : MonoBehaviour {
         */
 
         // use A and D to turn instead of mouse
-        if (Input.GetKey(KeyCode.D)) {
-            transform.Rotate(0, RotateSpeed, 0);
-        } else if (Input.GetKey(KeyCode.A)) {
-            transform.Rotate(0, -RotateSpeed, 0);
-        }
+        
 
         // wait until new accident notification is finished playing to start nav
         if (newJob && !notifySource.isPlaying) {
@@ -198,26 +220,49 @@ public class VehicleController : MonoBehaviour {
     }
 
     public void PlayTurnSignal() {
-        if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
+        if (DashboardUI.LEVEL >= SoundLevel.MEDIUM && !isBlinking)
         {
+            isBlinking = true;
             notifySource3.clip = turnSignal;
             notifySource3.loop = true;
             notifySource3.Play();
-
             StartCoroutine(MergeIntoTraffic());
+        }
+        else if (isBlinking)
+        {
+            notifySource3.Stop();
+            StopCoroutine(MergeIntoTraffic());
+            isBlinking = false;
         }
     }
 
     public void PlayUnsafeToOpenDoor() {
-        StartCoroutine(PlayDoorOpen());
+        if (DashboardUI.LEVEL >= SoundLevel.MEDIUM && !isDoor)
+        {
+            StartCoroutine(PlayDoorOpen());
+        }
+        else
+        {
+            StopCoroutine(PlayDoorOpen());
+            isDoor = false;
+        }
+        
     }
-
+    bool isDoor;
     private IEnumerator PlayDoorOpen() {
         alarmSource.clip = unsafeToOpenDoor;
-        for (int i = 0; i < 8; i++) {
-            alarmSource.Play();
-            yield return new WaitForSeconds(0.5f);
+        //for (int i = 0; i < 8; i++) {
+           // alarmSource.Play();
+            //yield return new WaitForSeconds(0.5f);
+        //}
+        alarmSource.loop = true;
+        alarmSource.Play();
+        while (CarPassingBy.GetLowestDistance(this.transform) > 0.5)
+        {
+            yield return null;
         }
+        alarmSource.Stop();
+        alarmSource.loop = false;
         alarmSource.clip = safeToOpenDoor;
         alarmSource.Play();
     }
@@ -228,14 +273,23 @@ public class VehicleController : MonoBehaviour {
             yield return new WaitForSeconds(1.5f);
         }
     }
-
+    bool isBlinking;
     private IEnumerator MergeIntoTraffic() {
-        yield return new WaitForSeconds(4f);
+        //yield return new WaitForSeconds(4f);
+
+        isBlinking = true;
+        Debug.Log(CarPassingBy.GetLowestDistance(this.transform));
+        while (CarPassingBy.GetLowestDistance(this.transform) > 0.5)
+        {
+            Debug.Log(CarPassingBy.GetLowestDistance(this.transform));
+            yield return null;
+        }
         notifySource3.Stop();   // disable blinker
         notifySource3.loop = false;
 
         notifySource2.clip = safeToMerge;
         notifySource2.Play();
+        isBlinking = false;
     }
 
     public void SafeToPullOver() {
