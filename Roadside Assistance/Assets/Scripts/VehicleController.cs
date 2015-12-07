@@ -66,8 +66,8 @@ public class VehicleController : MonoBehaviour {
         }
         if (Input.GetKey(KeyCode.S))
         {
-            float forward = Input.GetAxis("Vertical") * Speed * Time.deltaTime;
-            transform.Translate(0, 0, -1*forward);
+            float forward = ((Input.GetAxis("Vertical") < 0) ? Input.GetAxis("Vertical") : 0) * Speed * Time.deltaTime;
+            transform.Translate(0, 0, forward);
             //rb.AddForce(transform.forward * -10);
         }
         if (rb.velocity.x != 0 || rb.velocity.y != 0 || rb.velocity.z != 0)
@@ -134,7 +134,9 @@ public class VehicleController : MonoBehaviour {
 
 	}
 
-    public void PlayNewAccident() {
+    public void PlayNewAccident(AudioClip AccidentType, AudioClip SpeechType) {
+        newAccident = AccidentType;
+        newJobSpeech = SpeechType;
         if (CURRENTSTATE == State.PATROL)
         {
             if (DashboardUI.LEVEL > SoundLevel.OFF)
@@ -144,7 +146,7 @@ public class VehicleController : MonoBehaviour {
             }
             //StartCoroutine("NewLightOn", newAccident.length);
             newJob = true;
-            dUI.ToggleNewJobLight();
+            dUI.NewJobLightOn();
             CURRENTSTATE = State.ENROUTE;
         }
     }
@@ -172,20 +174,20 @@ public class VehicleController : MonoBehaviour {
                 notifySource.Play();
                 //StartCoroutine("NewUpdateOn", accidentUpdate.length);
             }
-            dUI.ToggleUpdateLight();
+            dUI.UpdateLightOn();
         }
     }
     
     private IEnumerator NewUpdateOff(float time)
     {
         yield return new WaitForSeconds(time);
-        dUI.ToggleUpdateLight();
+        dUI.ClearUpdate();
     }
 
     private IEnumerator NewJobOff(float time)
     {
         yield return new WaitForSeconds(time);
-        dUI.ToggleNewJobLight();
+        dUI.ClearNewJob();
     }
 
     public void PlayAccidentUpdateSpeech() {
@@ -257,7 +259,7 @@ public class VehicleController : MonoBehaviour {
         //}
         alarmSource.loop = true;
         alarmSource.Play();
-        while (CarPassingBy.GetLowestDistance(this.transform) > 0.5)
+        while (CarPassingBy.GetLowestDistance(this.transform) > 0.5 || !doorSafe)
         {
             yield return null;
         }
@@ -294,6 +296,24 @@ public class VehicleController : MonoBehaviour {
 
     public void SafeToPullOver() {
         safeToPullOver = true;
+    }
+    bool doorSafe = true;
+    public void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "wall")
+        {
+            Debug.Log("Collision");
+            doorSafe = false;
+        }
+    }
+
+    public void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "wall")
+        {
+            Debug.Log("Collision");
+            doorSafe = true;
+        }
     }
 
 }

@@ -3,6 +3,9 @@ using System.Collections;
 
 public class NewAccident : MonoBehaviour {
 
+    public AudioClip AccidentType;
+    public AudioClip SpeechType;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -15,7 +18,7 @@ public class NewAccident : MonoBehaviour {
 
     void OnTriggerEnter(Collider c) {
         if (c.tag.Equals("car")) {
-            c.GetComponent<VehicleController>().PlayNewAccident();
+            c.GetComponent<VehicleController>().PlayNewAccident(AccidentType, SpeechType);
         }
     }
 }

@@ -20,7 +20,7 @@ public class DirectionalNav : MonoBehaviour {
 	}
 
     public void InitializeNav() {
-        float distance = (serviceVehicle.position - transform.position).magnitude;
+        float distance = (serviceVehicle.position - this.transform.position).magnitude;
         isInRange = false;
         StartCoroutine(DirectionalNavigate(distance));
     }
@@ -28,7 +28,8 @@ public class DirectionalNav : MonoBehaviour {
     IEnumerator DirectionalNavigate(float maxDistance) {
         float delay;
 
-        while (!isInRange) {
+        while (!isInRange && VehicleController.CURRENTSTATE == State.ENROUTE)
+        {
             if (DashboardUI.LEVEL >= SoundLevel.MEDIUM)
             {
                 aud.Play();

@@ -45,18 +45,18 @@ public class DashboardUI : MonoBehaviour {
         }
 	}
 
-    public void ToggleNewJobLight()
+    public void NewJobLightOn()
     {
-        Color originalColor = NewJobLight.GetComponent<Image>().color;
-        Color lColor = originalColor == Color.black ? Color.green : Color.black;
-        NewJobLight.GetComponent<Image>().color = lColor;
+        //Color originalColor = NewJobLight.GetComponent<Image>().color;
+        //Color lColor = originalColor == Color.black ? Color.green : Color.black;
+        NewJobLight.GetComponent<Image>().color = Color.green;
     }
 
-    public void ToggleUpdateLight()
+    public void UpdateLightOn()
     {
-        Color originalColor = UpdateJobLight.GetComponent<Image>().color;
-        Color lColor = originalColor == Color.black ? Color.green : Color.black;
-        UpdateJobLight.GetComponent<Image>().color = lColor;
+        //Color originalColor = UpdateJobLight.GetComponent<Image>().color;
+        //Color lColor = originalColor == Color.black ? Color.green : Color.black;
+        UpdateJobLight.GetComponent<Image>().color = Color.green;
     }
 
     public void ToggleWeatherLight()
@@ -70,6 +70,16 @@ public class DashboardUI : MonoBehaviour {
     public void ClearWeather()
     {
         WeatherLight.GetComponent<Image>().color = Color.black;
+    }
+
+    public void ClearNewJob()
+    {
+        NewJobLight.GetComponent<Image>().color = Color.black;
+    }
+
+    public void ClearUpdate()
+    {
+        UpdateJobLight.GetComponent<Image>().color = Color.black;
     }
 
     

@@ -14,8 +14,13 @@ public class AccidentUpdate : MonoBehaviour {
 	}
 
     void OnTriggerEnter(Collider c) {
-        if (c.tag.Equals("car")) {
-            c.GetComponent<VehicleController>().PlayAccidentUpdate();
+        if (VehicleController.CURRENTSTATE == State.ENROUTE)
+        {
+            if (c.tag.Equals("car"))
+            {
+                c.GetComponent<VehicleController>().PlayAccidentUpdate();
+            }
         }
+        
     }
 }
