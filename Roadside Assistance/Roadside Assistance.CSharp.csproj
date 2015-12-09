@@ -51,17 +51,17 @@
     <Reference Include="UnityEngine">
       <HintPath>Library\UnityAssemblies\UnityEngine.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEngine.Advertisements">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Advertisements.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEngine.UI">
       <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.Networking">
       <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
     </Reference>
-    <Reference Include="UnityEngine.Networking">
-      <HintPath>Library\UnityAssemblies\UnityEngine.Networking.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.UI">
-      <HintPath>Library\UnityAssemblies\UnityEngine.UI.dll</HintPath>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>Library\UnityAssemblies\UnityEngine.Analytics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
@@ -74,21 +74,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\AccidentUpdate.cs" />
-    <Compile Include="Assets\Scripts\CarPassingBy.cs" />
-    <Compile Include="Assets\Scripts\DashboardUI.cs" />
-    <Compile Include="Assets\Scripts\DemoController.cs" />
-    <Compile Include="Assets\Scripts\DirNav2.cs" />
-    <Compile Include="Assets\Scripts\DirectionalNav.cs" />
-    <Compile Include="Assets\Scripts\Movement.cs" />
-    <Compile Include="Assets\Scripts\Mud.cs" />
-    <Compile Include="Assets\Scripts\NewAccident.cs" />
-    <Compile Include="Assets\Scripts\Scen2Vehicle.cs" />
-    <Compile Include="Assets\Scripts\TrafficCars.cs" />
-    <Compile Include="Assets\Scripts\TrafficControl.cs" />
-    <Compile Include="Assets\Scripts\VehicleController.cs" />
-    <Compile Include="Assets\Scripts\WeatherTrigger.cs" />
-    <Compile Include="Assets\Scripts\WeatherUpdate.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\AccidentUpdate.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\CarPassingBy.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\DashboardUI.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\DemoController.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\DirNav2.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\DirectionalNav.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\Movement.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\Mud.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\NewAccident.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\Scen2Vehicle.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\TrafficCars.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\TrafficControl.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\VehicleController.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\WeatherTrigger.cs" />
+    <Compile Include="Assets\TeamUntitled_MiniProject\Scripts\WeatherUpdate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>
